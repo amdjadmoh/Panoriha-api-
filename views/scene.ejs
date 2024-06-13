@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>add pointer</h1>
+    <form id="uploadForm"   enctype="multipart/form-data">
+        <p>Name:</p>
+        <input name="name">
+        <p>X coordnates:</p>
+        <input name="x">
+        <p>y coordnates:</p>
+        <input name="y">
+        <p>z coordnates:</p>
+
+        <input name="z">
+        <p>File :</p>
+
+        <input type="file" name="image" id="fileInput" >
+        <input type='submit'>
+    </form>
+    
+    <script>
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', fileInput.files[0]); // Append file
+    formData.append('name', form.name.value); // Append name field value
+    formData.append('x',form.x.value);
+    formData.append('y',form.y.value);
+    formData.append('z',form.z.value);
+    try {
+        const response = await fetch(window.location.href, {
+            method: 'POST',
+            body: formData
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+    </script>
+</body>
+</html>
